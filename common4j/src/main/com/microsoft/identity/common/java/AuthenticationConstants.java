@@ -593,6 +593,10 @@ public class AuthenticationConstants {
          * The BRT request made with this resourceID will contain the updated claim acquired in the interrupt flow performed before it.
          */
         public static final String CLAIMS_UPDATE_RESOURCE = "urn:aad:tb:update:prt/.default";
+        /**
+         * Used in AcquireTransferToken flow.
+         */
+        public static final String TRANSFER_TOKEN_SCOPE = "service::http://Passport.Net/purpose::PURPOSE_TRANSFER_TOKEN_BACKUP_RESTORE";
     }
 
     /**

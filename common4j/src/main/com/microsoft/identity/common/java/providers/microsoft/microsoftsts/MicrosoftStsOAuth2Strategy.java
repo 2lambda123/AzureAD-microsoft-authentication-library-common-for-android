@@ -26,6 +26,7 @@ import static com.microsoft.identity.common.java.AuthenticationConstants.AAD.APP
 import static com.microsoft.identity.common.java.AuthenticationConstants.AAD.APP_VERSION;
 import static com.microsoft.identity.common.java.AuthenticationConstants.Broker.CHALLENGE_REQUEST_HEADER;
 import static com.microsoft.identity.common.java.AuthenticationConstants.OAuth2Scopes.CLAIMS_UPDATE_RESOURCE;
+import static com.microsoft.identity.common.java.AuthenticationConstants.OAuth2Scopes.TRANSFER_TOKEN_SCOPE;
 import static com.microsoft.identity.common.java.AuthenticationConstants.SdkPlatformFields.PRODUCT;
 import static com.microsoft.identity.common.java.AuthenticationConstants.SdkPlatformFields.VERSION;
 import static com.microsoft.identity.common.java.net.HttpConstants.HeaderField.XMS_CCS_REQUEST_ID;
@@ -711,7 +712,9 @@ public class MicrosoftStsOAuth2Strategy
             tokens = tokens.concat("access_token");
         }
 
-        if (!CLIENT_CREDENTIALS.equalsIgnoreCase(request.getGrantType()) &&
+        // Acquire transfer token flow do not return id token.
+        if (!StringUtil.containsSubString(request.getScope(), TRANSFER_TOKEN_SCOPE) &&
+                !CLIENT_CREDENTIALS.equalsIgnoreCase(request.getGrantType()) &&
                 StringUtil.isNullOrEmpty(response.getIdToken())) {
             clientException = ClientException.TOKENS_MISSING;
             tokens = tokens.concat(" id_token");
