@@ -101,6 +101,9 @@ open class BrokerValidator: IBrokerValidator {
     override fun isValidBrokerPackage(packageName: String): Boolean {
         val methodTag = "$TAG:isValidBrokerPackage"
 
+        if (packageName == BrokerData.debugLTW.packageName) {
+            return true
+        }
         val matchingApp = allowedBrokerApps.filter {
             it.packageName.equals(packageName, ignoreCase = true)
         }.firstOrNull {
