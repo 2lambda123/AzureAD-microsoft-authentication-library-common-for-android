@@ -1,5 +1,6 @@
 V.Next
 ---------
+- [MAJOR] Support a new API Path for Account Transfer in Broker (#2375)
 
 Version 17.4.0
 ---------
