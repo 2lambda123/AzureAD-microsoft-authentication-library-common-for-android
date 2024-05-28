@@ -52,6 +52,9 @@ public class CopyFileRule implements TestRule {
     private final static String DEFAULT_SOURCE_FOLDER = "/sdcard/";
     private final static String DEFAULT_DESTINATION_FOLDER = "/data/local/tmp/";
 
+    // Lab Application certificate file
+    private final static String LAB_VAULT_ACCESS_CERT_PFX = "LabVaultAccessCert.pfx";
+
     private final String mSourceFolder;
     private final String mDestFolder;
     private final String[] mApkFileNames = {
@@ -97,6 +100,8 @@ public class CopyFileRule implements TestRule {
                 for (final String apkFileName: mApkFileNames){
                     AdbShellUtils.copyFile(mSourceFolder + apkFileName, mDestFolder);
                 }
+
+                AdbShellUtils.copyFile(mSourceFolder + LAB_VAULT_ACCESS_CERT_PFX, mDestFolder);
 
                 base.evaluate();
             }
