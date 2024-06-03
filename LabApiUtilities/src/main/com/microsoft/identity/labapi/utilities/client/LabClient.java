@@ -36,6 +36,7 @@ import com.microsoft.identity.internal.test.labapi.model.CustomSuccessResponse;
 import com.microsoft.identity.internal.test.labapi.model.SecretResponse;
 import com.microsoft.identity.internal.test.labapi.model.TempUser;
 import com.microsoft.identity.internal.test.labapi.model.UserInfo;
+import com.microsoft.identity.labapi.utilities.BuildConfig;
 import com.microsoft.identity.labapi.utilities.authentication.LabApiAuthenticationClient;
 import com.microsoft.identity.labapi.utilities.constants.ProtectionPolicy;
 import com.microsoft.identity.labapi.utilities.constants.TempUserType;
@@ -392,10 +393,9 @@ public class LabClient implements ILabClient {
     public boolean resetPassword(@NonNull final String upn) throws LabApiException {
         final ResetApi resetApi = new ResetApi();
         try {
-            final CustomSuccessResponse resetResponse = resetApi.apiResetPut(upn, ResetOperation.PASSWORD.toString());
-            final String expectedResult = ("Password reset successful for user : " + upn)
-                    .toLowerCase();
-            final boolean result = resetResponse.getResult().toLowerCase().contains(expectedResult);
+            final String resetResponse = resetApi.apiResetPut(upn, ResetOperation.PASSWORD.toString());
+            final String expectedResult = ("Password reset for " + upn).toLowerCase();
+            final boolean result = resetResponse.toLowerCase().contains(expectedResult);
             if (result) {
                 try {
                     Thread.sleep(PASSWORD_RESET_WAIT_DURATION);
